@@ -38,7 +38,7 @@
 
         <div class="card">
             <h5 class="card-header">Current Reservations</h5>
-            <div class="card-body">
+            <div class="card-body" id="tableInfoDis">
                 <h5 class="card-title"></h5>
                 <p class="card-text"></p>
             </div>
@@ -68,5 +68,31 @@
 
     <script src="https://kit.fontawesome.com/318dc71138.js" crossorigin="anonymous"></script>
 </body>
+<script type="text/javascript">
+
+    function getTablesInfo() {
+        // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
+        $.ajax({ url: "/api/tables", method: "GET" })
+            .then(function (tableData) {
+
+                for (let i = 0; i < tableData.length; i++) {
+                    var tableDisplay = $("#tableInfoDis");
+
+                    tableDisplay.append(
+                        $("<h2>").text("CustomerName : " + tableData[i].customerName),
+                        $("<hr>"),
+                        $("<h2>").text("CustomerPhone : " + tableData[i].cutomerPhone),
+                        $("<h2>").text("CustomerEmail : " + tableData[i].customerEmail),
+                        $("<h2>").text("CustomerId : " + tableData[i].customerId),
+                    );
+                }
+            })
+    }
+
+    getTablesInfo();
+
+
+
+</script>
 
 </html>
